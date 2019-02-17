@@ -18,4 +18,13 @@ describe('Reading users from database', () => {
                 done();
             });
     });
+
+    it ('finds a user with a particular id', (done) => {
+        User.findOne({ _id: nick._id })
+            .then((user) => {
+                assert(user.name === 'Nick');
+                done();
+            });
+    });
+
 });
