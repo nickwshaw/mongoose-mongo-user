@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 // Use ES6 Promises
 mongoose.Promise = global.Promise
+// Fix deprecation warnings
+mongoose.set('useFindAndModify', false);
 
 // Mocha hook. Runs once before test suite starts.
 before((done) => {
