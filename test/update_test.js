@@ -8,7 +8,10 @@ describe('Updating users in the database', () => {
         nick = new User({ name: 'Nick' });
         nick.save()
             .then(() => {
-                nick2 = new User({ name: 'Nick'});
+                nick2 = new User({ 
+                    name: 'Nick',
+                    postCount: 0
+                });
                 nick2.save();
             })
             .then(() => {
@@ -51,11 +54,21 @@ describe('Updating users in the database', () => {
         );
     });
 
-    it('mocel class find a record by id then update', (done) => {
+    it('model class find a record by id then update', (done) => {
         assertName(
             User.findByIdAndUpdate(nick._id, { name: 'Andy' }),
             done
         );
+    });
+
+    xit('users should have post count incremented by 1', (done) => {
+        User.updateMany({ name: 'Nick'}, { $inc: { postCount: 1 } })
+            .then(() => User.findOne({ name: 'Nick'}))
+            .then((user) => {
+                assert(user.postCount === 1);
+                done();
+            })
+
     });
 
 });
