@@ -12,7 +12,12 @@ const UserSchema = new Schema({
 
         }
     },
-    posts: [PostSchema]
+    posts: [PostSchema],
+    likes: Number,
+    blogPosts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'blogPost'
+    }]
 });
 
 // do not use fat arrow as using 'this' would refer to this file

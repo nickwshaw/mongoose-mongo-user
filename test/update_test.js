@@ -10,7 +10,7 @@ describe('Updating users in the database', () => {
             .then(() => {
                 nick2 = new User({ 
                     name: 'Nick',
-                    postCount: 0
+                    likes: 0 
                 });
                 nick2.save();
             })
@@ -61,11 +61,12 @@ describe('Updating users in the database', () => {
         );
     });
 
-    xit('users should have post count incremented by 1', (done) => {
-        User.updateMany({ name: 'Nick'}, { $inc: { postCount: 1 } })
+    it('users should have post count incremented by 1', (done) => {
+        User.updateMany({ name: 'Nick'}, { $inc: { likes: 1 } })
             .then(() => User.findOne({ name: 'Nick'}))
             .then((user) => {
-                assert(user.postCount === 1);
+                //console.log(user);
+                assert(user.likes === 1);
                 done();
             })
 
