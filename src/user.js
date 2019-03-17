@@ -25,6 +25,14 @@ UserSchema.virtual('postCount').get(function () {
     return this.posts.length
 });
 
+//Using middleware for cleanup
+UserSchema.pre('remove', function(next) {
+    //this === a single record
+    BlogPost = mongoose.model('blogPost');
+    BlogPost.deleteMany({ _id: { $in: this.blogPosts } })
+        .then(() => next());
+});
+
 const User = mongoose.model('user', UserSchema);
 
 module.exports = User;
